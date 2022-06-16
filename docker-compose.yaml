@@ -1,0 +1,18 @@
+version: "3"
+services:
+  mq.local:
+    container_name: mq.local
+    image: rabbitmq:3.9.13-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=sabrina
+      - RABBITMQ_DEFAULT_PASS=sabrina
+    volumes:
+      - /tmp/data/mq:/var/lib/rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics ping -q
+      interval: 15s
+      timeout: 5s
+      retries: 5
